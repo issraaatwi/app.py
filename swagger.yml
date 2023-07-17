@@ -1,0 +1,121 @@
+openapi: 3.0.0
+info:
+  title: To-Do List API
+  description: CRUD operations for a To-Do List application
+  version: 1.0.0
+paths:
+  /tasks:
+    post:
+      tags:
+        - Tasks
+      summary: Create a new task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskInput"
+      responses:
+        '201':
+          description: Task created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+paths:
+  /tasks:
+    get:
+      tags:
+        - Tasks
+      summary: Retrieve all tasks
+      responses:
+        '200':
+          description: List of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+paths:
+  /tasks/{task_id}:
+    get:
+      tags:
+        - Tasks
+      summary: Retrieve a specific task
+      parameters:
+        - name: task_id
+          in: path
+          description: ID of the task to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Task retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+paths:
+  /tasks/{task_id}:
+    put:
+      tags:
+        - Tasks
+      summary: Update a specific task
+      parameters:
+        - name: task_id
+          in: path
+          description: ID of the task to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskInput"
+      responses:
+        '200':
+          description: Task updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+paths:
+  /tasks/{task_id}:
+    delete:
+      tags:
+        - Tasks
+      summary: Delete a specific task
+      parameters:
+        - name: task_id
+          in: path
+          description: ID of the task to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Task deleted successfully
+components:
+  schemas:
+    TaskInput:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+
